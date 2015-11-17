@@ -7,21 +7,22 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test; 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Parameter;
 import ru.yandex.qatools.allure.annotations.Step;
+import ru.yandex.qatools.allure.annotations.Stories;
 
-
+@Features("Математические операции")
+@Stories("Проверка математических операций")
 @RunWith(Parameterized.class)
 public class MathTest 
 {
@@ -34,7 +35,7 @@ public class MathTest
 	@Parameter("result from file")
 	private float result;
 	
-	private Properties properties;
+
 	
 	public MathTest(@Parameter int first,@Parameter int second,@Parameter char oper,@Parameter float res){
 		this.firstNum=first;

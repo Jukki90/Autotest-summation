@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -28,5 +22,17 @@
 	<classpathentry kind="lib" path="D:/Study/Java/allure-junit-adaptor-1.4.19.jar"/>
 	<classpathentry kind="lib" path="D:/Study/Java/allure-report-data-1.4.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre"/>
+	<classpathentry kind="lib" path="D:/Study/Java/maven-compiler-plugin-3.3.jar"/>
+	<classpathentry kind="lib" path="D:/Study/Java/allure-maven-plugin-2.4.jar"/>
+	<classpathentry kind="lib" path="D:/Study/Java/maven-site-plugin-3.4.jar"/>
+	<classpathentry kind="lib" path="D:/Study/Java/maven-surefire-plugin-2.19.jar"/>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/Study/Java/allure-bundle-1.4.16.jar"/>
+	<classpathentry kind="lib" path="D:/Study/Java/aspectjweaver-1.5.3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
