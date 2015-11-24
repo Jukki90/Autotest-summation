@@ -3,12 +3,12 @@ package testsum.my.ru.test;
 import static org.junit.Assert.*; 
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 
 import org.junit.Before;
 import org.junit.Test; 
@@ -48,7 +48,7 @@ public class MathTest
 	@Parameters
 	public static Collection<Object[]> data()throws IOException{		
 		Collection<TestData> list = new ArrayList<TestData>();
-		FileReader reader = new FileReader("data.txt");
+		FileReader reader = new FileReader("src/test/resources/data.txt");
 		BufferedReader bufferedReader = new BufferedReader(reader);
 		String line = bufferedReader.readLine();
 		while(line!=null){
@@ -90,7 +90,7 @@ public class MathTest
 			if(secondNum==0){ return;}
 			calcRes = firstNum/secondNum+firstNum%secondNum;
 		}
-		//System.out.println(firstNum+","+secondNum+","+operation+","+result+","+calcRes);
+		
 		assertTrue(calcRes== result);
 	}
 

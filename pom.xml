@@ -2,23 +2,16 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>testsum.my.ru</groupId>
-  <artifactId>test</artifactId>
+  <groupId>testSum.my.ru</groupId>
+  <artifactId>testMathOperation</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-
-  <name>test</name>
-  <url>http://maven.apache.org</url>
+  
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-     <aspectj.version>1.7.4</aspectj.version>
-     <buildDirectory>${project.basedir}/target</buildDirectory>
-    <allure.results.directory>${buildDirectory}/allure-results</allure.results.directory>
-    <resultsPatternAllure>**/allure-results</resultsPatternAllure>
+    <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+    <aspectj.version>1.8.7</aspectj.version>
   </properties>
-  
-  <description>Allure JUnit and WebDriver Usage Example</description>
 
   <dependencies>
     <dependency>
@@ -27,99 +20,62 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-     <dependency>
+    <dependency>
         <groupId>ru.yandex.qatools.allure</groupId>
         <artifactId>allure-junit-adaptor</artifactId>
         <version>1.4.19</version>
     </dependency>
-     <dependency>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-site-plugin</artifactId>
-	<version>3.4</version>
+    <dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-simple</artifactId>
+		<version>1.7.13</version>
 	</dependency>
-
-<dependency>
-				<groupId>ru.yandex.qatools.allure</groupId>
-				<artifactId>allure-report-data</artifactId>
-				<version>1.4.3</version>
-			</dependency>
-<dependency>
-	<groupId>ru.yandex.qatools.allure</groupId>
-	<artifactId>allure-bundle</artifactId>
-	<version>1.4.16</version>
-</dependency>
-
+    <dependency>
+		<groupId>ru.yandex.qatools.allure</groupId>
+		<artifactId>allure-bundle</artifactId>
+		<version>1.4.19</version>
+	</dependency>
     
-  </dependencies>
-  <build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.19</version>
-            <executions>
-		        <execution>
-		            <id>default-test</id>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-		        </execution>
-		    </executions>
-            <configuration>
-                <testFailureIgnore>false</testFailureIgnore>
-                <argLine>
-                    -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
-                </argLine>
-                <properties>
-                    <property>
-                        <name>listener</name>
-                        <value>ru.yandex.qatools.allure.junit.AllureRunListener</value>
-                    </property>
-                </properties>
-            </configuration>
-            <dependencies>
-                <dependency>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjweaver</artifactId>
-                    <version>1.8.3</version>
-                </dependency>
-            </dependencies>
-        </plugin>
-         <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.3.5.v20151012</version>
-                <configuration>
-                    <webAppSourceDirectory>${project.build.directory}/site/allure-maven-plugin</webAppSourceDirectory>
-                    <stopKey>stop</stopKey>
-                    <stopPort>1234</stopPort>
-                </configuration>
-            </plugin>
+     </dependencies>
+    
+    <build>
+        <plugins>
             <plugin>
-			    <inherited>true</inherited>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			    <version>3.3</version>              
-			</plugin>
-			<plugin>
-			    <groupId>ru.yandex.qatools.allure</groupId>
-			    <artifactId>allure-maven-plugin</artifactId>
-			    
-			    <configuration>
-			        <resultsDirectory>allure-results</resultsDirectory>
-			    </configuration>
-			</plugin>
-			
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}\org\aspectj\aspectjweaver\${aspectj.version}\aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <systemProperties>
+                        <property>
+                            <name>allure.results.directory</name>
+                            <value>${allure.results.directory}</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 
-      </plugins>	    
-</build>
-      <reporting>
+    <reporting>
         <excludeDefaults>true</excludeDefaults>
         <plugins>
             <plugin>
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-maven-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.5</version>
+                <configuration>
+                    <allureResultsDirectory>${allure.results.directory}</allureResultsDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
