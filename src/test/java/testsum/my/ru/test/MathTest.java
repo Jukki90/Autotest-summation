@@ -3,12 +3,15 @@ package testsum.my.ru.test;
 import static org.junit.Assert.*; 
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.List;
-
 
 import org.junit.Before;
 import org.junit.Test; 
@@ -20,12 +23,15 @@ import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Parameter;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.allure.annotations.Stories;
+import testsum.my.ru.test.TestData;
 
 @Features("Математические операции")
 @Stories("Проверка математических операций")
 @RunWith(Parameterized.class)
 public class MathTest 
 {
+	
+	
 	@Parameter("first operand")
 	private int firstNum;
 	@Parameter("second operand")
@@ -35,21 +41,20 @@ public class MathTest
 	@Parameter("result from file")
 	private float result;
 	
-
-	
-	public MathTest(@Parameter int first,@Parameter int second,@Parameter char oper,@Parameter float res){
+	public MathTest(@Parameter int first,@Parameter int second,@Parameter char oper,@Parameter float res)throws IOException{
 		this.firstNum=first;
 		this.secondNum=second;
 		this.operation=oper;
 		this.result=res;
+		
 	}
 	
+
 	
-	@Parameters
-	public static Collection<Object[]> data()throws IOException{		
+	private static List<Object[]> getDataFromFile()throws IOException{
 		Collection<TestData> list = new ArrayList<TestData>();
-		FileReader reader = new FileReader("src/test/resources/data.txt");
-		BufferedReader bufferedReader = new BufferedReader(reader);
+		InputStream instream = MathTest.class.getResourceAsStream("/data.txt");
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(instream));
 		String line = bufferedReader.readLine();
 		while(line!=null){
 			String[] part = line.split(";");
@@ -63,16 +68,22 @@ public class MathTest
 			line = bufferedReader.readLine();
 		}
 		bufferedReader.close();
-		
 		List<Object[]> resList = new ArrayList<Object[]>() ;
 		for (TestData row : list){
 			resList.add(new Object[]{row.getFirstOperand(), row.getSecondOperand(),row.getOperation(), row.getResult()});
-			
 		}
-	
-		
 		return resList;
+		
 	}
+	
+
+
+	@Parameters
+	public static Collection<Object[]> data()throws IOException{
+		return getDataFromFile();
+	}
+
+	
 
 	@Test
 	@Step("Main Test")

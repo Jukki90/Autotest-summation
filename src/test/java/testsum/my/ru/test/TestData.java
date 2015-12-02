@@ -8,6 +8,9 @@ public class TestData {
 	private char operation;
 	private float result;
 	
+	public TestData(){
+	}
+	
 	
 	//-- getters and setters --
 	public int getFirstOperand() {
