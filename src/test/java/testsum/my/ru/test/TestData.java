@@ -3,10 +3,10 @@ package testsum.my.ru.test;
 
 public class TestData {
 	
-	private int firstOperand;
-	private int secondOperand;
-	private char operation;
-	private float result;
+	int firstOperand;
+	int secondOperand;
+	char operation;
+	float result;
 	
 	public TestData(){
 	}

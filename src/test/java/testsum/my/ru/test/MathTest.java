@@ -1,37 +1,29 @@
 package testsum.my.ru.test;
 
 import static org.junit.Assert.*; 
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.List;
-
-import org.junit.Before;
+import java.util.Properties;
 import org.junit.Test; 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Parameter;
 import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.allure.annotations.Stories;
-import testsum.my.ru.test.TestData;
+import testsum.my.ru.test.TestData;;
 
 @Features("Математические операции")
 @Stories("Проверка математических операций")
 @RunWith(Parameterized.class)
-public class MathTest 
-{
-	
-	
+public class MathTest {
 	@Parameter("first operand")
 	private int firstNum;
 	@Parameter("second operand")
@@ -46,14 +38,27 @@ public class MathTest
 		this.secondNum=second;
 		this.operation=oper;
 		this.result=res;
-		
 	}
 	
+	private static String getProperty(String field)throws IOException{
+		FileInputStream fis;
+        Properties property = new Properties();
+        String res=null;
+        try {
+            fis = new FileInputStream("src/config/config.properties");
+            property.load(fis);
+            res = property.getProperty(field);
+           
+        } catch (IOException e) {
+            System.err.println("ОШИБКА: Файл свойств отсуствует!");
+        }
+        	return res;
+	}
 
 	
 	private static List<Object[]> getDataFromFile()throws IOException{
 		Collection<TestData> list = new ArrayList<TestData>();
-		InputStream instream = MathTest.class.getResourceAsStream("/data.txt");
+		InputStream instream = MathTest.class.getResourceAsStream(getProperty("link"));
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(instream));
 		String line = bufferedReader.readLine();
 		while(line!=null){
